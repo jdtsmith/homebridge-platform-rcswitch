@@ -35,7 +35,7 @@ void rcswitch_set_receive_tolerance(int percent) {
 }
 int rcswitch_enable_receive(int interrupt) {
     if(!isWiringSetup) {
-        if(wiringPiSetup() == -1) {
+        if(wiringPiSetupGpio() == -1) {
             return 1;
         }
         isWiringSetup = 1;
@@ -131,7 +131,7 @@ void rcswitch_send(int protocol, int pin, int repeat, int pulse, unsigned long c
 
 void rcswitch_send_scode_word(int protocol, int pin, int repeat, int pulse, char* sCodeWord) {
     if(!isWiringSetup) {
-        if (wiringPiSetup () == -1) {
+        if (wiringPiSetupGpio () == -1) {
             fprintf(stderr,"wiringPiSetup failed %d\n");
         }
         isWiringSetup = 1;
