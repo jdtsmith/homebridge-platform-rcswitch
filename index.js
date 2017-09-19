@@ -11,7 +11,9 @@ function RCSwitchPlatform(log, config) {
     var self = this;
     self.config = config;
     self.log = log;
-    rsswitch.setupSniffer(self.config.sniffer_pin, self.config.tolerance);
+    if('sniffer_pin' in self.config) {
+	rsswitch.setupSniffer(self.config.sniffer_pin, self.config.tolerance);
+    }
 }
 RCSwitchPlatform.prototype.listen = function() {
     var self = this;
@@ -31,7 +33,9 @@ RCSwitchPlatform.prototype.accessories = function(callback) {
     self.config.switches.forEach(function(sw) {
         self.accessories.push(new RCSwitchAccessory(sw, self.log, self.config));
     });
-    setTimeout(self.listen.bind(self),10);
+    if('sniffer_pin' in self.config) {
+	setTimeout(self.listen.bind(self),10);
+    }
     callback(self.accessories);
 }
 
