@@ -1,7 +1,13 @@
 # homebridge-platform-rcswitch
 [![NPM Version](https://img.shields.io/npm/v/homebridge-platform-rcswitch.svg)](https://www.npmjs.com/package/homebridge-platform-rcswitch)
 
-RCSwitch plugin for the awesome  [Homebridge](https://github.com/nfarina/homebridge) project.
+RCSwitch plugin for the awesome
+[Homebridge](https://github.com/nfarina/homebridge) project.
+
+Modified to use the new gpiomem WiringPi system and GPIO pin numbering
+system (BCM pin numbers) for compatibility with other GPIO-using
+Homebridge modules.
+
 
 ## Currently supports
 - Etekcity Tap 5 port Power plug
@@ -18,9 +24,9 @@ RCSwitch plugin for the awesome  [Homebridge](https://github.com/nfarina/homebri
 
 Configuration sample:
 
-`send_pin`, `sniffer_pin` is the gpio pin you are using to send/receive signal. it is different than the physical pin you are using. see [wireingpi.com](http://wiringpi.com/pins/) for details.
+`send_pin`, `sniffer_pin` is the gpio pin you are using to send/receive signal.   If `sniffer_pin` is not set, no receiving will be enabled.  This module uses the BCM pin numbering system, which is different than the physical pin you are using. see [wireingpi.com](http://wiringpi.com/pins/) for details (or try `gpio readall`)
 
-`switches` is the list of the "buttons" codes on your remote. start without any switch configed, press the button on your remote, you should get your code in homebridge log console.
+`switches` is the list of the "buttons" codes on your remote. If you have the modular sniffing module active, start without any switch configed, press the button on your remote, you should get your code in homebridge log console.  Or just invent a code and train your remote with it.
 
 
  ```javascript
@@ -60,9 +66,6 @@ Configuration sample:
 
 ```
 
-The module should work on raspberry pi. due to raspberry pi and linux is not real time os/device, you might get different result on different device/time.
-
-I'm using [this 433Mhz kit from ebay, include MX-FS-03V and MX-05V](http://www.ebay.com/sch/i.html?_nkw=433Mhz+RF+Transmitter+Module+and+Receiver+Link+Kit+)
 
 # Credits
 
@@ -72,6 +75,9 @@ Credit goes to
 - [rfoutlet project](https://github.com/timleland/rfoutlet) and his [blog post](https://timleland.com/wireless-power-outlets/)
 - [http://scottfrees.com/](http://scottfrees.com/) for his great tutorial for asynchronous call.
 - inspired by [homebridge-platform-wemo] https://github.com/rudders/homebridge-platform-wemo
+- rainlake rewrote this
+- jdtsmith adapted the pin numbering scheme for [compatibility with other plugins](https://github.com/n8henrie/homebridge-rcswitch-gpiomem/issues/11).
+
 
 # License
 
